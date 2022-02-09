@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.3'
+    id 'info.solidsoft.pitest' version '1.7.0'
 }
 
 apply plugin: 'java'
@@ -28,4 +29,12 @@ dependencies {
 test {
     systemProperties = System.properties
     useJUnitPlatform()
+}
+
+pitest {
+    targetClasses = ['test.*']
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+    junit5PluginVersion = '0.15'
 }
