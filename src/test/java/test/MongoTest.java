@@ -12,6 +12,11 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 @DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
@@ -33,9 +38,10 @@ public class MongoTest {
     protected MongoDatabaseFactory mongoDatabaseFactory;
 
     @Test
-    void canRun() {
+    void canRun() throws IOException {
         System.out.println(mongoDBContainer.getContainerInfo().getConfig().getImage());
 
-        fail(mongoDBContainer.getContainerInfo().getConfig().getImage());
+        Files.write(Paths.get("output.txt"),
+                mongoDBContainer.getContainerInfo().getConfig().getImage().getBytes());
     }
 }

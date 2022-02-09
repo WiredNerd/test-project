@@ -32,7 +32,6 @@ jobs:
       run: gradle test
 
     - uses: actions/upload-artifact@v2
-      if: ${{ failure() }}
       with:
-        name: build
-        path: build/
+        name: output.txt
+        path: output.txt
