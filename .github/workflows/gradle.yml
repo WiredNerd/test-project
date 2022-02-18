@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker run --name some-mongo -d -p 27017:27017 mongo:5.0 --config mongod.cfg
-      - run: docker logs some-mongo
+      - run: docker run -d -p 27017:27017 --name mongo mongo:5.0 mongod --replSet rs0 --port 27017
+      - run: docker logs mongo
       - run: mongosh mongodb://localhost:27017/test?replicaSet=rs0 -f "mongo-init.js"
 
