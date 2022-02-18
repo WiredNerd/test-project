@@ -6,9 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: docker run -d -p 27017:27017 mongo:5.0
       - run: |
           pwd
+          ls
           cd ..
           pwd 
           ls
