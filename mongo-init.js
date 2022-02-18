@@ -1,0 +1,2 @@
+db.getName()
+rs.initialize()
