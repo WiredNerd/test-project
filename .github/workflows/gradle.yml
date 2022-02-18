@@ -6,9 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: addnab/docker-run-action@v3
-        with:
-          image: mongo:5.0
-          options: -p 27017:27017
-          run: mongosh mongodb://localhost:27017/test -f "mongo-init.js"
+      - run: docker run -d -p 27017:27017 mongo:5.0
+      - run: mongosh mongodb://localhost:27017/test -f "mongo-init.js"
 
