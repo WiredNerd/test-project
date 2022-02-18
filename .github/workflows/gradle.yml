@@ -7,7 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker run -d -p 27017:27017 --name mongo mongo:5.0 mongod --replSet rs0 --port 27017
-      - run: docker logs mongo
-      - run: mongosh mongodb://localhost:27017/test?replicaSet=rs0 -f "mongo-init.js"
-
+      - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0 mongod --replSet rs0 --port 27017
+      - run: docker exec -it mongoSvr mongo --eval rs.initiate()
