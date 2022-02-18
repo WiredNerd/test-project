@@ -9,7 +9,7 @@ jobs:
       - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0.6-focal mongod --replSet rs0 --port 27017
       - run: |
           pip install wait-for-it
-          wait-for-it --service mongodb://mongoSvr:27017
+          wait-for-it --service localhost:27017
       - run: docker exec -i mongoSvr mongo --eval "rs.initiate()"
       - run: docker logs mongoSvr
         if: always()
