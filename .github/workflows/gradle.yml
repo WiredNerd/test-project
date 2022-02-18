@@ -5,10 +5,15 @@ on: [ push, workflow_dispatch ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0.6-focal mongod --replSet rs0 --port 27017
-      - run: docker inspect mongoSvr
-      - run: docker exec -i mongoSvr mongo mongodb://172.17.0.1:27017/test --eval 'rs.initiate()'
-      - run: docker logs mongoSvr
-        if: always()
+      steps:
+        - uses: addnab/docker-run-action@v3
+          image: mongo:5.0
+          options: mongod --replSet rs0 --port 27017
+          run: mongo --eval 'rs.initiate()'
+#       - uses: actions/checkout@v2
+#       - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0.6-focal mongod --replSet rs0 --port 27017
+#       - run: docker exec -i mongoSvr mongo --eval "rs.initiate()"
+        - run: docker logs mongoSvr
+          if: always()
+        - run: docker inspect mongoSvr
+          if: always()
