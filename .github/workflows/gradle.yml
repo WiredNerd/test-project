@@ -9,5 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0.6-focal mongod --replSet rs0 --port 27017
       - run: docker inspect mongoSvr
+      - run: docker exec -i mongoSvr mongo mongodb://172.17.0.1:27017/test --eval 'rs.initiate()'
       - run: docker logs mongoSvr
-      - run: docker exec -i mongoSvr mongo mongodb://172.17.0.1:27017/test?tls=true --eval 'rs.initiate()'
+        if: always()
