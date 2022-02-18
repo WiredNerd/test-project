@@ -7,12 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0.6-focal mongod --replSet rs0 --port 27017
-      - run: |
-          until [[ $(docker logs mongoSvr) == *"waiting for connections on port 27017"* ]]
-          do
-            echo "waiting on mongo to boot..."
-            sleep 1
-          done
+      - run: wait-for-it --service mongodb://mongoSvr:27017
       - run: docker exec -i mongoSvr mongo --eval "rs.initiate()"
       - run: docker logs mongoSvr
         if: always()
