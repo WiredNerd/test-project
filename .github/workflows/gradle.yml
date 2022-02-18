@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: docker run -d -p 27017:27017 mongo:5.0
-      - run: pwd
-      - run: ls
+      - run: |
+          pwd
+          cd ..
+          pwd 
+          ls
       - run: mongosh mongodb://localhost:27017/test -f "mongo-init.js"
 
