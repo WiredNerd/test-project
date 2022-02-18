@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker run -d -p 27017:27017 mongo:5.0 --config mongod.cfg
-      - run: mongosh mongodb://localhost:27017/test -f "mongo-init.js"
+      - run: mongosh mongodb://localhost:27017/test?replicaSet=rs0 -f "mongo-init.js"
 
