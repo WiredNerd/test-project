@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker run -d -p 27017:27017 --name mongoSvr mongo:5.0 mongod --replSet rs0 --port 27017
-      - run: docker exec -it mongoSvr mongo --eval rs.initiate()
+      - run: docker exec -i mongoSvr mongo --eval 'rs.initiate()'
