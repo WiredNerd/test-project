@@ -10,5 +10,5 @@ jobs:
         with:
           image: mongo:5.0
           options: -p 27017:27017
-          run: mongosh -f "mongo-init.js"
+          run: mongosh mongodb://localhost:27017 -f "mongo-init.js"
 
